@@ -30,10 +30,15 @@ const renderSpinner = function (parentEl) {
 ///////////////////////////////////////
 const showRecipe = async function () {
   try {
+    const id = window.location.hash.slice(1);
+    console.log(id);
+
+    if (!id) return;
+
     renderSpinner(recipeContainer);
     // 1) Loading recipe
     const res = await fetch(
-      'https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886'
+      `https://forkify-api.jonas.io/api/v2/recipes/${id}`
     );
     const data = await res.json();
     console.log(res, data);
@@ -118,7 +123,7 @@ const showRecipe = async function () {
                   <svg class="recipe__icon">
                     <use href="${icons}#icon-check"></use>
                   </svg>
-                      <div class="recipe__quantity">${ing.quantity}</div>
+                      <div class="recipe__quantity">${ing.quantity ?? ''}</div>
                   <div class="recipe__description">
                     <span class="recipe__unit">${ing.unit}</span>
                     ${ing.description}
@@ -158,4 +163,8 @@ const showRecipe = async function () {
     alert(err);
   }
 };
-showRecipe();
+
+['hashchange', 'load'].forEach(ev => window.addEventListener(ev, showRecipe));
+
+// window.addEventListener('hashchange', showRecipe);
+// window.addEventListener('load', showRecipe);
