@@ -1,18 +1,14 @@
 import { async } from 'regenerator-runtime';
-import recipeView from './views/recipeViews';
+import { API_URL } from './config.js';
+import { getJSON } from './views/helpers.js';
+
 export const state = {
   recipe: {},
 };
 
 export const loadRecipe = async function (id) {
   try {
-    // 1) Loading recipe
-    const res = await fetch(
-      `https://forkify-api.jonas.io/api/v2/recipes/${id}`
-    );
-    const data = await res.json();
-
-    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+    const data = await getJSON(`${API_URL}/${id}`);
 
     const { recipe } = data.data;
     state.recipe = {
