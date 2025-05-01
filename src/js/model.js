@@ -24,7 +24,7 @@ export const loadRecipe = async function (id) {
 
     console.log(state.recipe);
   } catch (err) {
-    console.log(err.message);
+    console.error(`${err} ❌❌`);
+    throw err;
   }
 };
-['hashchange', 'load'].forEach(ev => window.addEventListener(ev, loadRecipe));
