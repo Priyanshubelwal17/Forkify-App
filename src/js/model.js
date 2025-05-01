@@ -1,5 +1,5 @@
 import { async } from 'regenerator-runtime';
-import recipeView from '../views/recipeViews';
+import recipeView from './views/recipeViews';
 export const state = {
   recipe: {},
 };
