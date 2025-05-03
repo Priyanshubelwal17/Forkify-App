@@ -690,6 +690,8 @@ const controlRecipes = async function() {
         await _modelJs.loadRecipe(id);
         //2) Rendering recipe
         (0, _recipeViewsJsDefault.default).render(_modelJs.state.recipe);
+        // Test
+        controlServings();
     } catch (err) {
         (0, _recipeViewsJsDefault.default).renderError();
     }
@@ -716,6 +718,11 @@ const controlPagination = function(gotoPage) {
     (0, _resultViewJsDefault.default).render(_modelJs.getSearchResultPage(gotoPage));
     // 4) Render NEW pagination buttons
     (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
+};
+const controlServings = function() {
+    //Update the recipe servings (in state)
+    _modelJs.updateServings(6);
+// Update the recipe view
 };
 const init = function() {
     (0, _recipeViewsJsDefault.default).addHandlerRender(controlRecipes);
@@ -2599,6 +2606,7 @@ parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe);
 parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 parcelHelpers.export(exports, "getSearchResultPage", ()=>getSearchResultPage);
+parcelHelpers.export(exports, "updateServings", ()=>updateServings);
 var _regeneratorRuntime = require("regenerator-runtime");
 var _configJs = require("./config.js");
 var _helpersJs = require("./helpers.js");
@@ -2655,6 +2663,12 @@ const getSearchResultPage = function(page = state.search.page) {
     const start = (page - 1) * state.search.resultsPerPage;
     const end = page * state.search.resultsPerPage;
     return state.search.results.slice(start, end);
+};
+const updateServings = function(newServings) {
+    state.recipe.ingredients.forEach((ing)=>{
+        ing.quantity = ing.quantity * newServings / state.recipe.servings;
+    });
+    state.recipe.servings = newServings;
 };
 
 },{"regenerator-runtime":"f6ot0","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./config.js":"2hPh4","./helpers.js":"7nL9P"}],"2hPh4":[function(require,module,exports,__globalThis) {
