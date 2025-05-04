@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/Priyanshubelwal17/Forkify-App/issues"
   },
-  "homepage": "https://github.com/Priyanshubelwal17/Forkify-App#readme",
+  "homepage": "https://priyanshubelwal17.github.io/Forkify-App/",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.14.4",
     "parcel": "^2.14.4"

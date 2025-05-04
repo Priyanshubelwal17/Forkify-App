@@ -17,7 +17,7 @@
 68C:\Users\priya\Forkify-App\node_modules\core-js\stable\symbol\for.js133904250977807270 0
 81C:\Users\priya\Forkify-App\node_modules\caniuse-lite\data\features\flexbox-gap.js133903357340758892 0
 55C:\Users\priya\Forkify-App\forkify-flowchart-part-1.png133856432785576962 0
-39C:\Users\priya\Forkify-App\package.json133905679241862641 0
+39C:\Users\priya\Forkify-App\package.json133908437663987514 0
 70C:\Users\priya\Forkify-App\node_modules\core-js\stable\dom-collections133904250992474246 1
 35C:\Users\priya\Forkify-App\src\sass133903215718846213 1
 37C:\Users\priya\Forkify-App\.gitignore133903358091822705 0
