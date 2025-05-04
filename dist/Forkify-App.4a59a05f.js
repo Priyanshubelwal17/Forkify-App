@@ -690,8 +690,6 @@ const controlRecipes = async function() {
         await _modelJs.loadRecipe(id);
         //2) Rendering recipe
         (0, _recipeViewsJsDefault.default).render(_modelJs.state.recipe);
-        // Test
-        controlServings();
     } catch (err) {
         (0, _recipeViewsJsDefault.default).renderError();
     }
@@ -719,13 +717,15 @@ const controlPagination = function(gotoPage) {
     // 4) Render NEW pagination buttons
     (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
 };
-const controlServings = function() {
+const controlServings = function(newServings) {
     //Update the recipe servings (in state)
-    _modelJs.updateServings(6);
-// Update the recipe view
+    _modelJs.updateServings(newServings);
+    // Update the recipe view
+    (0, _recipeViewsJsDefault.default).render(_modelJs.state.recipe);
 };
 const init = function() {
     (0, _recipeViewsJsDefault.default).addHandlerRender(controlRecipes);
+    (0, _recipeViewsJsDefault.default).addHandlerUpdateServings(controlServings);
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
     (0, _paginationViewJsDefault.default).addHandlerClick(controlPagination);
 };
@@ -2633,7 +2633,6 @@ const loadRecipe = async function(id) {
             cookingTime: recipe.cooking_time,
             ingredients: recipe.ingredients
         };
-        console.log(state.recipe);
     } catch (err) {
         console.error(`${err} \u{274C}\u{274C}`);
         throw err;
@@ -2728,8 +2727,15 @@ class RecipeView extends (0, _viewDefault.default) {
             'load'
         ].forEach((ev)=>window.addEventListener(ev, handler));
     }
+    addHandlerUpdateServings(handler) {
+        this._parentElement.addEventListener('click', function(e) {
+            const btn = e.target.closest('.btn--update-servings');
+            if (!btn) return;
+            const { updateTo } = btn.dataset;
+            if (+updateTo > 0) handler(+updateTo);
+        });
+    }
     _generateMarkup() {
-        console.log(this._data);
         return `
     <figure class="recipe__fig">
           <img src="${this._data.image}" alt="${this._data.titlethis}" class="recipe__img" />
@@ -2754,12 +2760,12 @@ class RecipeView extends (0, _viewDefault.default) {
             <span class="recipe__info-text">servings</span>
 
             <div class="recipe__info-buttons">
-              <button class="btn--tiny btn--increase-servings">
+              <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings - 1}">
                 <svg>
                   <use href="${0, _iconsSvgDefault.default}#icon-minus-circle"></use>
                 </svg>
               </button>
-              <button class="btn--tiny btn--increase-servings">
+              <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings + 1}">
                 <svg>
                   <use href="${0, _iconsSvgDefault.default}#icon-plus-circle"></use>
                 </svg>
@@ -3012,7 +3018,6 @@ class ResultView extends (0, _viewDefault.default) {
     _errorMessage = 'No recipes found for your query! Please try again';
     _message = '';
     _generateMarkup() {
-        console.log(this._data);
         return this._data.map(this._generateMarkupPreview).join('');
     }
     _generateMarkupPreview(result) {
