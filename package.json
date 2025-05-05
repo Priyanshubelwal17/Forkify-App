@@ -13,9 +13,6 @@
   },
   "author": "Priyanshu Belwal",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/priyanshubei4m117/forkify-App/issues"
-  },
   "homepage": "https://priyanshubei4m117.github.io/forkify-App/",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.14.4",
@@ -25,7 +22,7 @@
   "dependencies": {
     "core-js": "^3.42.0",
     "fractional": "^1.0.0",
-    "fracty": "^1.0.0",
+    "fracty": "^1.0.12",
     "regenerator-runtime": "^0.14.1"
   }
 }
